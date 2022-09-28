@@ -1,6 +1,10 @@
 #include "screen.h"
 #include "low_level.h"
 
+
+int get_screen_offset(int col, int row) {
+    return ((row * MAX_COLS) + col) * 2;
+}
 int get_cursor()
 {
     port_byte_out ( REG_SCREEN_CTRL , 14);
@@ -46,7 +50,7 @@ void print_char( char character , int col , int row)
     offset += 2;
     // Make scrolling adjustment , for when we reach the bottom
     // of the screen .
-    offset = handle_scrolling ( offset );
+    //offset = handle_scrolling ( offset );
     // Update the cursor position on the screen device .
     set_cursor( offset );
 }
@@ -179,7 +183,7 @@ static int print(char **out, int *varg)
 	return pc;
 }
 
-static void printchar(char **str, int c)
+void printchar(char **str, int c)
 {
 	if (str) {
 		**str = c;

@@ -15,3 +15,5 @@ int printf(const char *format, ...);
 void print_char ( char character , int col , int row);
 void set_cursor(int offset);
 int get_cursor();
+
+int get_screen_offset(int col, int row);
