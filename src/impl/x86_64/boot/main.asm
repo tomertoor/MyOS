@@ -9,8 +9,8 @@ char:
 
 start:
 	;print:
-	;mov ah, 0
-	;int 0x16
+	mov ah, 0
+	int 0x16
 
 	mov al, [char]
 	mov dword [0xb8000], 0x2f4f2f
