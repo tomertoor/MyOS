@@ -74,6 +74,22 @@ void my_print(char* message) {
     print_at(message, -1, -1);
 }
 
+void print_int(int num)
+{
+    int arr[100]={0};
+    int i = 0, r;
+    while (num != 0) {
+        r = num % 10;
+        arr[i] = r;
+        i++;
+        num /= 10;
+    }
+    for(int j=i-1 ; j>=0 ; j--)
+    {
+        print_char((char)(48+arr[j]), -1, -1);
+    }
+}
+
 void cls() {
     int row = 0;
     int col = 0;

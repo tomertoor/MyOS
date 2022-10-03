@@ -1,3 +1,5 @@
+#pragma once
+
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS 25
 #define MAX_COLS 80
@@ -14,5 +16,6 @@ int get_cursor();
 int get_screen_offset(int col, int row);
 void print_at(char* message, int col, int row);
 void my_print(char* message);
+void print_int(int num);
 void cls();
 int handle_scrolling(int cursor_offset);
