@@ -10,8 +10,15 @@ void main()
     // {
     //     my_print(test);
     // }
-    char test = getc();
-    print_char(test, -1, -1);
+    while(1)
+    {
+        char test = getc();
+
+        print_char(test, -1, -1);
+        __asm__("nop");
+        //my_print("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+    }
+    
     my_print("\n\n");
     my_print("finished");
 }

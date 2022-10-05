@@ -2,6 +2,7 @@
 #include "low_level.h"
 #include "screen.h"
 
+
 unsigned char chars[] = {
     '\0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
     '0', '-', '=', '\0', '\0', 'q', 'w', 'e', 'r', 't', //backspace then tab
@@ -19,12 +20,19 @@ unsigned int restart_keyboard()
 
 unsigned char read_scan_code()
 {
-    unsigned char code = port_byte_in(KEYBOARD_DATA_PORT);
-    if((int)code <= 39)
+    char state = port_byte_in(KEYBOARD_STATUS_PORT);
+    
+    if(state & 1) // checks if the output buffer status if its full or not.
     {
-        return chars[code-1];
-        port_byte_out(KEYBOARD_DATA_PORT, 0);
+        unsigned char code = port_byte_in(KEYBOARD_DATA_PORT);
+        if((int)code <= 39)// && last_key != code)
+        {
+            port_byte_out(KEYBOARD_DATA_PORT, 0);
+            return chars[code-1];
+        }
     }
+    
+
     return 0;
 }
 
@@ -34,6 +42,8 @@ unsigned char getc()
     while(!got)
     {
         got = read_scan_code();
+        //print_char(got+'0', -1, -1);
     }
+    //my_print("RE");
     return got;
 }
