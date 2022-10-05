@@ -2,6 +2,11 @@
 #include "low_level.h"
 #include "utils.h"
 
+void set_cursor(int offset);
+int get_screen_offset(int col, int row);
+void print_at(char* message, int col, int row);
+int handle_scrolling(int cursor_offset);
+
 int get_screen_offset(int col, int row) {
     return ((row * MAX_COLS) + col) * 2;
 }
@@ -41,6 +46,17 @@ void print_char( char character , int col , int row)
     set_cursor( offset );
 }
 
+void delete_char()
+{
+    unsigned char * vidmem = ( unsigned char *) VIDEO_ADDRESS;
+    int offset = get_cursor();
+    offset -= 2;
+    vidmem [ offset] = ' ';
+    vidmem [ offset+1] = WHITE_ON_BLACK;
+	offset = handle_scrolling(offset);
+    set_cursor( offset );
+}
+
 void print_at(char* message, int col, int row) {
     if (col >= 0 && row >= 0) {
         set_cursor(get_screen_offset(col, row));
@@ -76,17 +92,24 @@ void my_print(char* message) {
 
 void print_int(int num)
 {
-    int arr[100]={0};
-    int i = 0, r;
+    char arr[10]={0};
+    int i = 0, r, neg=0;
+    if(num<0)
+    {
+        neg=1;
+        num*=-1;
+    }
     while (num != 0) {
         r = num % 10;
-        arr[i] = r;
+        arr[i] = r+48;
         i++;
         num /= 10;
     }
+    if(neg)
+        print_char('-', -1, -1);
     for(int j=i-1 ; j>=0 ; j--)
     {
-        print_char((char)(48+arr[j]), -1, -1);
+        print_char(arr[j], -1, -1);
     }
 }
 

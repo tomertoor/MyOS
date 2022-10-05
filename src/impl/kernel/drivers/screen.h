@@ -11,11 +11,8 @@
 #define REG_SCREEN_DATA 0x3D5
 
 void print_char ( char character , int col , int row);
-void set_cursor(int offset);
 int get_cursor();
-int get_screen_offset(int col, int row);
-void print_at(char* message, int col, int row);
 void my_print(char* message);
 void print_int(int num);
 void cls();
-int handle_scrolling(int cursor_offset);
+void delete_char();
