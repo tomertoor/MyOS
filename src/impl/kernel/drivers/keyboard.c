@@ -35,6 +35,9 @@ unsigned char read_scan_code()
     return 0;
 }
 
+/*
+testing the keyboard functionality
+*/
 void keyboard()
 {
     while(1)
@@ -48,6 +51,9 @@ void keyboard()
     }
 }
 
+/*
+the getchar function remake
+*/
 unsigned char getchar()
 {
     char a=' ', b=' ';
@@ -72,6 +78,9 @@ unsigned char getchar()
     return b;
 }
 
+/*
+the getc function remake
+*/
 unsigned char getc()
 {
     int got = 0;
@@ -82,6 +91,10 @@ unsigned char getc()
     return got;
 }
 
+/*
+writes the characters typed to the string buffer
+maximus size in MAX_STRING_SIZE
+*/
 void scan_string(char* str)
 {
     int i = 0, originalOffest = get_cursor();
@@ -100,16 +113,20 @@ void scan_string(char* str)
         }
         else
         {
-            if(i<MAX_STRING_LEN)
+            print_char(a, -1, -1);
+            if(i<MAX_STRING_LEN-1) //the last '\0' must be
             {
                 str[i] = a;
-                print_char(str[i], -1, -1);
                 i++;
             }
         }
     }
 }
 
+/*
+returns -1 in case of invalid integer
+otherwise returns the integer entered
+*/
 int scan_int()
 {
     char num[MAX_INT_LEN] = {0};
@@ -146,6 +163,11 @@ int scan_int()
         i++;
     }
     for (; num[i] != '\0'; ++i)
-        number = number * 10 + num[i] - '0';
+    {
+        if(num[i] >= '0' && num[i] <= '9')
+            number = number * 10 + num[i] - '0';
+        else
+            return -1;
+    }
     return number * minus;
 }

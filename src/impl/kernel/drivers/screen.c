@@ -37,6 +37,13 @@ void print_char( char character , int col , int row)
     if ( character == '\n') {
         int rows = offset / (2* MAX_COLS );
         offset = get_screen_offset (79 , rows );
+    }else if(character == '\t') {
+        for(int i=0 ; i<4 ; i++)
+        {
+            vidmem [ offset ] = ' ' ;
+            vidmem [ offset +1] = attribute_byte ;
+            offset += 2;
+        }
     } else {
         vidmem [ offset ] = character ;
         vidmem [ offset +1] = attribute_byte ;
@@ -50,9 +57,12 @@ void delete_char()
 {
     unsigned char * vidmem = ( unsigned char *) VIDEO_ADDRESS;
     int offset = get_cursor();
-    offset -= 2;
-    vidmem [ offset] = ' ';
-    vidmem [ offset+1] = WHITE_ON_BLACK;
+    do
+    {
+        offset -= 2;
+        vidmem [ offset] = '\0';
+        vidmem [ offset+1] = WHITE_ON_BLACK;
+    } while (vidmem[offset-2] == '\0');
 	offset = handle_scrolling(offset);
     set_cursor( offset );
 }
@@ -118,7 +128,7 @@ void cls() {
     int col = 0;
     for (row=0; row<MAX_ROWS; row++) {
         for (col=0; col<MAX_COLS; col++) {
-            print_char(' ', col, row);
+            print_char('\0', col, row);
         }
     }
     set_cursor(get_screen_offset(0, 0));
