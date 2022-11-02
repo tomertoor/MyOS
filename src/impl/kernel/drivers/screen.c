@@ -4,7 +4,7 @@
 
 void set_cursor(int offset);
 int get_screen_offset(int col, int row);
-void print_at(char* message, int col, int row);
+void print_at(char* message, int col, int row, char color);
 int handle_scrolling(int cursor_offset);
 
 int get_screen_offset(int col, int row) {
@@ -29,7 +29,7 @@ void set_cursor(int offset)
     port_byte_out(REG_SCREEN_DATA, offset);
 }
 
-void print_char( char character , int col , int row)
+void print_char( char character , int col , int row, char color)
  {
     unsigned char * vidmem = ( unsigned char *) VIDEO_ADDRESS ;
     char attribute_byte = WHITE_ON_BLACK;
@@ -46,7 +46,10 @@ void print_char( char character , int col , int row)
         }
     } else {
         vidmem [ offset ] = character ;
-        vidmem [ offset +1] = attribute_byte ;
+        if(color)
+            vidmem [ offset +1] = color ;
+        else
+            vidmem [ offset +1] = attribute_byte ;
     }
     offset += 2;
 	offset = handle_scrolling(offset);
@@ -67,13 +70,13 @@ void delete_char()
     set_cursor( offset );
 }
 
-void print_at(char* message, int col, int row) {
+void print_at(char* message, int col, int row, char color) {
     if (col >= 0 && row >= 0) {
         set_cursor(get_screen_offset(col, row));
     }
     int i = 0;
     while (message[i] != 0) {
-        print_char(message[i++], col, row);
+        print_char(message[i++], col, row, color);
     }
 }
 
@@ -96,11 +99,11 @@ int handle_scrolling(int cursor_offset) {
     return cursor_offset;
 }
 
-void my_print(char* message) {
-    print_at(message, -1, -1);
+void my_print(char* message, char color) {
+    print_at(message, -1, -1, color);
 }
 
-void print_int(int num)
+void print_int(int num, char color)
 {
     char arr[10]={0};
     int i = 0, r, neg=0;
@@ -116,10 +119,10 @@ void print_int(int num)
         num /= 10;
     }
     if(neg)
-        print_char('-', -1, -1);
+        print_char('-', -1, -1, color);
     for(int j=i-1 ; j>=0 ; j--)
     {
-        print_char(arr[j], -1, -1);
+        print_char(arr[j], -1, -1, color);
     }
 }
 
@@ -128,7 +131,7 @@ void cls() {
     int col = 0;
     for (row=0; row<MAX_ROWS; row++) {
         for (col=0; col<MAX_COLS; col++) {
-            print_char('\0', col, row);
+            print_char('\0', col, row, 0);
         }
     }
     set_cursor(get_screen_offset(0, 0));

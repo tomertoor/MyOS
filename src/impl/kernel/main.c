@@ -28,5 +28,5 @@ void main()
     // print_int(num);
     // my_print("\n\n");
     terminal();
-    my_print("finished");
+    my_print("finished", 0);
 }

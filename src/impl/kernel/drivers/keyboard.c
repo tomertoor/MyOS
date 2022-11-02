@@ -46,7 +46,7 @@ void keyboard()
         if(test == '\b')
             delete_char();
         else
-            print_char(test, -1, -1);
+            print_char(test, -1, -1, 0);
         __asm__("nop");
     }
 }
@@ -71,10 +71,10 @@ unsigned char getchar()
         else
         {
             b = a;
-            print_char(b, -1, -1);
+            print_char(b, -1, -1, 0);
         }
     }
-    my_print("\n");
+    my_print("\n", 0);
     return b;
 }
 
@@ -113,7 +113,7 @@ void scan_string(char* str)
         }
         else
         {
-            print_char(a, -1, -1);
+            print_char(a, -1, -1, 0);
             if(i<MAX_STRING_LEN-1) //the last '\0' must be
             {
                 str[i] = a;
@@ -149,7 +149,7 @@ int scan_int()
             if(i<MAX_INT_LEN)
             {
                 num[i] = a;
-                print_char(num[i], -1, -1);
+                print_char(num[i], -1, -1, 0);
                 i++;
             }
         }

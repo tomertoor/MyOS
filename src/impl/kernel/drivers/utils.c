@@ -35,14 +35,16 @@ void terminal()
 {
     while(1)
     {
-        my_print(TERMINAL_ROOT);
+        my_print(TERMINAL_ROOT, 0x02);
         char choice[MAX_STRING_LEN] = {0};
         scan_string(choice);
-        print_char('\n', -1, -1);
+        print_char('\n', -1, -1, 0);
         if(!strncmp(choice, EXIT_TERMINAL, MAX_STRING_LEN))
             break;
+        else if(!strncmp(choice, "cls", MAX_STRING_LEN))
+            cls();
         else
-            my_print("Error, command not found\n");
+            my_print("Error, command not found\n", 0x04);
     }
-    my_print("exit from terminal\n\n");
+    my_print("exit from terminal\n\n", 0);
 }

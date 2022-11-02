@@ -10,9 +10,9 @@
 #define REG_SCREEN_CTRL 0x3D4
 #define REG_SCREEN_DATA 0x3D5
 
-void print_char ( char character , int col , int row);
+void print_char ( char character , int col , int row, char color);
 int get_cursor();
-void my_print(char* message);
-void print_int(int num);
+void my_print(char* message, char color);
+void print_int(int num, char color);
 void cls();
 void delete_char();
