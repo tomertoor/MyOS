@@ -1,11 +1,24 @@
-#include "drivers/screen.h"
-#include "drivers/keyboard.h"
+#include "filesystem/filesystemInterface.h"
 #include "drivers/utils.h"
+#include "drivers/screen.h"
+
+#define FILESYSTEM
+
+FSHandler createFSHandler(int num);
+void freeFSHandler(FSHandler handler);
+int printNum(FSHandler handler);
+int printInode(FSHandler handler);
 
 void main()
 {
     cls();
-    // keyboard();
+    my_print("testing classes in C", 0);
+    FSHandler handler = createFSHandler(12);
+    my_print("working great!", 0);
+}
+
+
+// keyboard();
     // my_print("Enter your char: ");
     // char a = getchar();
     // my_print("getchar returned --> ");
@@ -27,6 +40,3 @@ void main()
     // my_print("Your integer is: ");
     // print_int(num);
     // my_print("\n\n");
-    terminal();
-    my_print("finished", 0);
-}
