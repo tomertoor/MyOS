@@ -1,20 +1,19 @@
-#include "filesystem/filesystemInterface.h"
 #include "drivers/utils.h"
 #include "drivers/screen.h"
 
-#define FILESYSTEM
 
-FSHandler createFSHandler(int num);
-void freeFSHandler(FSHandler handler);
-int printNum(FSHandler handler);
-int printInode(FSHandler handler);
+void cls();
 
 void main()
 {
     cls();
     my_print("testing classes in C", 0);
-    FSHandler handler = createFSHandler(12);
+
+    /*cls();
+    my_print("testing classes in C", 0);
     my_print("working great!", 0);
+        cls();*/
+
 }
 
 
