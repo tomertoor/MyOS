@@ -1,19 +1,17 @@
 #include "drivers/utils.h"
 #include "drivers/screen.h"
-
-
-void cls();
+#include "filesystem/filesystem.h"
 
 void main()
 {
     cls();
-    my_print("testing classes in C", 0);
-
-    /*cls();
-    my_print("testing classes in C", 0);
-    my_print("working great!", 0);
-        cls();*/
-
+    Filesystem a(45);
+    print_int(a.getInode(), 0x0);
+    my_print("\n", 0x0);
+    print_int(a.getNum(), 0x0);
+    my_print("Working beautifully", 0x0);
+    cls();
+    terminal();
 }
 
 

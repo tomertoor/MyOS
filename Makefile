@@ -21,7 +21,7 @@ $(kernel_object_files): build/kernel/%.o : src/impl/kernel/%.c
 
 $(kernel_object_cpp_files): build/kernel/%.o : src/impl/kernel/%.cpp
 	mkdir -p $(dir $@) && \
-	x86_64-elf-g++ -c -I src -ffreestanding $(patsubst build/kernel/%.o, src/impl/kernel/%.cpp, $@) -o $@
+	x86_64-elf-g++ -c -I src -ffreestanding $(patsubst build/kernel/%.o, src/impl/kernel/%.cpp, $@) -o -lstdc++$@
 
 $(x86_64_c_object_files): build/x86_64/%.o : src/impl/x86_64/%.c
 	mkdir -p $(dir $@) && \
