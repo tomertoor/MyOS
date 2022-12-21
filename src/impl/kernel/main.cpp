@@ -5,12 +5,9 @@
 void main()
 {
     cls();
-    Filesystem a(45);
-    print_int(a.getInode(), 0x0);
-    my_print("\n", 0x0);
-    print_int(a.getNum(), 0x0);
+    Filesystem a();
     my_print("Working beautifully", 0x0);
-    cls();
+    //cls();
     terminal();
 }
 
