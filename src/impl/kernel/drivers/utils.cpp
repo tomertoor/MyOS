@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "screen.h"
 #include "keyboard.h"
+#include "filesystem/filesystem.h"
 
 void copy_buffer(char* source, char* dest, int no_bytes) {
     int i;
@@ -39,6 +40,10 @@ void terminal()
         char choice[MAX_STRING_LEN] = {0};
         scan_string(choice);
         print_char('\n', -1, -1, 0);
+
+        //here we should use the FILESYSTEM class to parse the differnet
+        //user commands
+
         if(!strncmp(choice, EXIT_TERMINAL, MAX_STRING_LEN))
             break;
         else if(!strncmp(choice, "cls", MAX_STRING_LEN))
@@ -47,4 +52,13 @@ void terminal()
             my_print("Error, command not found\n", 0x04);
     }
     my_print("exit from terminal\n\n", 0);
+}
+
+void memset(void* dst, char c, size_t len)
+{
+    char* addr = (char*)dst;
+    while (len != 0) {
+        *addr++ = c;
+        --len;
+	}
 }

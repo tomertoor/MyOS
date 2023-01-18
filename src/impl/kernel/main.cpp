@@ -1,13 +1,20 @@
 #include "drivers/utils.h"
 #include "drivers/screen.h"
 #include "filesystem/filesystem.h"
+#include "drivers/memory.h"
 
 void main()
 {
     cls();
     Filesystem a();
     my_print("Working beautifully", 0x0);
-    //cls();
+
+    int* ret = (int*)allocate_block();
+    *ret = 1024;
+    my_print("new integer created using malloc value is: ", 0x0);
+    print_int(*ret, 0x4);
+
+    free_block((uint32_t)ret);
     terminal();
 }
 
